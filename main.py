@@ -373,6 +373,27 @@ while running:
                         active_enemy.first_key_time = current_time
                     if event.unicode and event.unicode.isprintable():
                         player_input += event.unicode
+            elif game_state == "VICTORY":
+                if event.key in [pygame.K_r, pygame.K_RETURN]:
+                    game_state = "LOGIN"
+                    player_email = ""
+                    player_age = ""
+                    player_country = ""
+                    parent_email = ""
+                    error_message = ""
+                    player_input = ""
+                    active_input_field = "EMAIL"
+
+                    score = 0
+                    total_attempts = 0
+                    correct_attempts = 0
+                    answered_questions = 0
+                    active_session_latencies = []
+                    thinking_latencies = []
+                    space_hold_start_time = 0
+                    data_exported = False
+
+                    enemy_queue = [Enemy(850, 270, 50, 50, 3, qd["q"], qd["a"], qd["name"]) for qd in QUESTION_POOL]
 
         elif event.type == pygame.KEYUP and game_state == "PLAYING" and active_enemy and active_enemy.answer == "HOLD_SPACE":
             if event.key == pygame.K_SPACE and space_hold_start_time > 0:
@@ -482,13 +503,43 @@ while running:
             screen.blit(hint_surf, (180, 375))
 
     elif game_state == "CONSENT":
-        pygame.draw.rect(screen, WHITE, (50, 50, 700, 490), 0, 8)
-        pygame.draw.rect(screen, BLACK, (50, 50, 700, 490), 2, 8)
+        pygame.draw.rect(screen, WHITE, (40, 40, 720, 520), 0, 8)
+        pygame.draw.rect(screen, BLACK, (40, 40, 720, 520), 2, 8)
+
+        font_consent_title = pygame.font.SysFont("Arial", 22, bold=True)
+        font_consent_body = pygame.font.SysFont("Arial", 17)
+        font_consent_action = pygame.font.SysFont("Arial", 19, bold=True)
+        
+        current_y = 65
+        max_text_width = 670
+
         for index, text_line in enumerate(consent_lines):
-            line_color = BLACK if index != len(consent_lines)-1 else GREEN
-            font_to_use = FONT_TITLE if index == 0 else (FONT_MED if index == len(consent_lines)-1 else FONT_SMALL)
-            surf_line = font_to_use.render(text_line, True, line_color)
-            screen.blit(surf_line, (75, 80 + (index * 32)))
+            if text_line.strip() == "":
+                current_y += 14
+                continue
+
+            if index == 0:
+                font_to_use = font_consent_title
+                line_color = BLACK
+            elif index == len(consent_lines) - 1:
+                font_to_use = font_consent_action
+                line_color = GREEN
+            else:
+                font_to_use = font_consent_body
+                line_color = BLACK
+
+            words = text_line.split(" ")
+            wrapped_line = ""
+            for word in words:
+                test_line = wrapped_line + word + " "
+                if font_to_use.size(test_line)[0] <= max_text_width:
+                    wrapped_line = test_line
+                else:
+                    screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (65, current_y))
+                    current_y += font_to_use.get_linesize() + 4
+                    wrapped_line = word + " "
+            screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (65, current_y))
+            current_y += font_to_use.get_linesize() + 8
 
     elif game_state == "PLAYING":
         screen.fill(WHITE)
