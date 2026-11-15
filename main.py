@@ -506,16 +506,16 @@ while running:
         pygame.draw.rect(screen, WHITE, (40, 40, 720, 520), 0, 8)
         pygame.draw.rect(screen, BLACK, (40, 40, 720, 520), 2, 8)
 
-        font_consent_title = pygame.font.SysFont("Arial", 22, bold=True)
-        font_consent_body = pygame.font.SysFont("Arial", 17)
-        font_consent_action = pygame.font.SysFont("Arial", 19, bold=True)
+    font_consent_title = pygame.font.Font(None, 28)
+        font_consent_body = pygame.font.Font(None, 22)
+        font_consent_action = pygame.font.Font(None, 25)
         
-        current_y = 65
-        max_text_width = 670
+        current_y = 55
+        max_text_width = 680
 
         for index, text_line in enumerate(consent_lines):
             if text_line.strip() == "":
-                current_y += 14
+                current_y += 10
                 continue
 
             if index == 0:
@@ -532,14 +532,14 @@ while running:
             wrapped_line = ""
             for word in words:
                 test_line = wrapped_line + word + " "
-                if font_to_use.size(test_line)[0] <= max_text_width:
+                if font_to_use.size(test_line) <= max_text_width:
                     wrapped_line = test_line
                 else:
-                    screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (65, current_y))
-                    current_y += font_to_use.get_linesize() + 4
+                    screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (55, current_y))
+                    current_y += font_to_use.get_linesize() + 2
                     wrapped_line = word + " "
-            screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (65, current_y))
-            current_y += font_to_use.get_linesize() + 8
+            screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (55, current_y))
+            current_y += font_to_use.get_linesize() + 6
 
     elif game_state == "PLAYING":
         screen.fill(WHITE)
