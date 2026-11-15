@@ -39,7 +39,8 @@ active_input_field = "EMAIL"
 # minors are not allowed to participate without parental consent which will be gained through entering a valid parental email 
 # This is a critical step for ethical data collection and compliance with privacy regulations (most important part for this project)
 consent_lines = [
-    "DATA PROCESSING & REACTION TIME STUDY CONSENT",
+    "DATA PROCESSING &",
+    "REACTION TIME STUDY CONSENT",
     "",
     "1. By clicking 'AGREE', you confirm you are voluntarily participating.",
     "2. Your reaction times and typing accuracy will be anonymously logged.",
