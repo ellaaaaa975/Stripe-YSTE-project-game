@@ -503,16 +503,16 @@ while running:
             hint_surf = FONT_SMALL.render("Press [ENTER] to swap sections", True, TEXT_MUTED)
             screen.blit(hint_surf, (180, 375))
 
-    elif game_state == "CONSENT":
-        pygame.draw.rect(screen, WHITE, (40, 40, 720, 520), 0, 8)
-        pygame.draw.rect(screen, BLACK, (40, 40, 720, 520), 2, 8)
+        elif game_state == "CONSENT":
+        pygame.draw.rect(screen, WHITE, (30, 30, 740, 540), 0, 8)
+        pygame.draw.rect(screen, BLACK, (30, 30, 740, 540), 2, 8)
 
-    font_consent_title = pygame.font.Font(None, 28)
-        font_consent_body = pygame.font.Font(None, 22)
-        font_consent_action = pygame.font.Font(None, 25)
+        font_consent_title = pygame.font.Font(None, 25)
+        font_consent_body = pygame.font.Font(None, 20)
+        font_consent_action = pygame.font.Font(None, 22)
         
-        current_y = 55
-        max_text_width = 680
+        current_y = 50
+        max_text_width = 700
 
         for index, text_line in enumerate(consent_lines):
             if text_line.strip() == "":
@@ -533,13 +533,13 @@ while running:
             wrapped_line = ""
             for word in words:
                 test_line = wrapped_line + word + " "
-                if font_to_use.size(test_line) <= max_text_width:
+                if font_to_use.size(test_line)[0] <= max_text_width:
                     wrapped_line = test_line
                 else:
-                    screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (55, current_y))
+                    screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (50, current_y))
                     current_y += font_to_use.get_linesize() + 2
                     wrapped_line = word + " "
-            screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (55, current_y))
+            screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (50, current_y))
             current_y += font_to_use.get_linesize() + 6
 
     elif game_state == "PLAYING":
