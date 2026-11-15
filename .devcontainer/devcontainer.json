@@ -1,6 +1,0 @@
-{
-  "name": "STRIPE YSTE Game",
-  "image": "://microsoft.com",
-  "postCreateCommand": "pip install pygame requests"
-}
-
