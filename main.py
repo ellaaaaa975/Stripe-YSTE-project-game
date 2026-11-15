@@ -1,4 +1,5 @@
 import pygame
+import textwrap
 import sys
 import re 
 import statistics
@@ -503,17 +504,15 @@ while running:
             hint_surf = FONT_SMALL.render("Press [ENTER] to swap sections", True, TEXT_MUTED)
             screen.blit(hint_surf, (180, 375))
 
-        elif game_state == "CONSENT":
+           elif game_state == "CONSENT":
         pygame.draw.rect(screen, WHITE, (30, 30, 740, 540), 0, 8)
         pygame.draw.rect(screen, BLACK, (30, 30, 740, 540), 2, 8)
 
-        font_consent_title = pygame.font.Font(None, 25)
-        font_consent_body = pygame.font.Font(None, 20)
-        font_consent_action = pygame.font.Font(None, 22)
-        
-        current_y = 50
-        max_text_width = 700
+        font_consent_title = pygame.font.Font(None, 26)
+        font_consent_body = pygame.font.Font(None, 21)
+        font_consent_action = pygame.font.Font(None, 23)
 
+        current_y = 50
         for index, text_line in enumerate(consent_lines):
             if text_line.strip() == "":
                 current_y += 10
@@ -522,25 +521,21 @@ while running:
             if index == 0:
                 font_to_use = font_consent_title
                 line_color = BLACK
+                char_limit = 65
             elif index == len(consent_lines) - 1:
                 font_to_use = font_consent_action
                 line_color = GREEN
+                char_limit = 70
             else:
                 font_to_use = font_consent_body
                 line_color = BLACK
-
-            words = text_line.split(" ")
-            wrapped_line = ""
-            for word in words:
-                test_line = wrapped_line + word + " "
-                if font_to_use.size(test_line)[0] <= max_text_width:
-                    wrapped_line = test_line
-                else:
-                    screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (50, current_y))
-                    current_y += font_to_use.get_linesize() + 2
-                    wrapped_line = word + " "
-            screen.blit(font_to_use.render(wrapped_line.strip(), True, line_color), (50, current_y))
-            current_y += font_to_use.get_linesize() + 6
+                char_limit = 82
+                
+            for wrapped_part in textwrap.wrap(text_line, width=char_limit):
+                surf_line = font_to_use.render(wrapped_part, True, line_color)
+                screen.blit(surf_line, (50, current_y))
+                current_y += font_to_use.get_linesize() + 3
+            current_y += 4
 
     elif game_state == "PLAYING":
         screen.fill(WHITE)
