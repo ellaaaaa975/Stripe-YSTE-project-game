@@ -44,9 +44,12 @@ consent_lines = [
     "1. By clicking 'AGREE', you confirm you are voluntarily participating.",
     "2. Your reaction times and typing accuracy will be anonymously logged.",
     "3. Demographics (Age, Country) will be used solely for tracking trends.",
-    "4. Your email will be used once to create an anonymous ID code and your actual email is never stored.",
-    "5. Minors (under 16): You confirm a parent/guardian has given permission and provided their email.",
-    "6. You retain the right to withdraw at any point and request that your data deleted at any time.",
+    "4. Your email will be used once to create an anonymous ID code",
+    "   and your actual email is never stored.",
+    "5. Minors (under 16): You confirm a parent/guardian has given permission",
+    "   and provided their email.",
+    "6. You retain the right to withdraw at any point and request that your",
+    "   data deleted at any time.",
     "",
     "Press [Y] to AGREE & start game  |  Press [N] to DECLINE & close program"
 ]
@@ -479,13 +482,13 @@ while running:
             screen.blit(hint_surf, (180, 375))
 
     elif game_state == "CONSENT":
-        pygame.draw.rect(screen, WHITE, (80, 60, 640, 460), 0, 8)
-        pygame.draw.rect(screen, BLACK, (80, 60, 640, 460), 2, 8)
+        pygame.draw.rect(screen, WHITE, (50, 50, 700, 490), 0, 8)
+        pygame.draw.rect(screen, BLACK, (50, 50, 700, 490), 2, 8)
         for index, text_line in enumerate(consent_lines):
             line_color = BLACK if index != len(consent_lines)-1 else GREEN
             font_to_use = FONT_TITLE if index == 0 else (FONT_MED if index == len(consent_lines)-1 else FONT_SMALL)
             surf_line = font_to_use.render(text_line, True, line_color)
-            screen.blit(surf_line, (110, 100 + (index * 38)))
+            screen.blit(surf_line, (75, 80 + (index * 32)))
 
     elif game_state == "PLAYING":
         screen.fill(WHITE)
