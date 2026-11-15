@@ -1,15 +1,6 @@
 {
-  "name": "STRIPE YSTE game",
-  "image": "://microsoft.com", 
-  "features": {
-    "ghcr.io/devcontainers/features/desktop-lite:1": {}
-  },
-  "postCreateCommand" : "pip install pygame requests",
-  "forwardPorts": [6080],
-  "portsAttributes": {
-    "6080": {
-      "label": "Game Screen",
-      "onAutoForward": "openBrowser"
-    }
-  }
+  "name": "STRIPE YSTE Game",
+  "image": "://microsoft.com",
+  "postCreateCommand": "pip install pygame requests"
 }
+
